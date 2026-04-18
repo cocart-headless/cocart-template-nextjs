@@ -5,7 +5,8 @@ A headless WooCommerce storefront built with Next.js App Router, React 19, TypeS
 > **This project was scaffolded by [create-cocart](https://github.com/cocart-headless/create-cocart).**
 > Your store URL and WordPress URL have already been substituted into the relevant files.
 
----
+> [!IMPORTANT]
+> This starter template is still a work in progress. It is currently being tested along with [create-cocart](https://github.com/cocart-headless/create-cocart) CLI tool to identify issues or improve before publicly announcing it ready for use.
 
 ## Features
 
