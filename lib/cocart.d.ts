@@ -42,10 +42,21 @@ export interface ProductStock {
   manage_stock: boolean;
 }
 
+export interface ProductAttribute {
+  id: number;
+  name: string;
+  position: number;
+  is_attribute_visible: boolean;
+  used_for_variation: boolean;
+  options: Record<string, string>;
+}
+
 export interface Product {
   id: number;
   name: string;
   slug: string;
+  type: "simple" | "variable" | "grouped" | "external";
+  sku: string;
   description: string;
   short_description: string;
   prices: ProductPrices;
@@ -53,6 +64,8 @@ export interface Product {
   stock: ProductStock;
   images: ProductImage[];
   categories: ProductCategory[];
+  attributes: Record<string, ProductAttribute>;
+  related: number[];
 }
 
 export interface Category {

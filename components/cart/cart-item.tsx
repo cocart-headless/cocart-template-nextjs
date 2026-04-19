@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import type { CartItem as CartItemType } from "@/lib/cocart.d";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,20 @@ interface CartItemProps {
 
 export function CartItem({ item }: CartItemProps) {
   const { updateItem, removeItem } = useCart();
+  const [localQty, setLocalQty] = useState(item.quantity.value);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function changeQty(next: number) {
+    setLocalQty(next);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      if (next <= 0) {
+        removeItem(item.item_key);
+      } else {
+        updateItem(item.item_key, next);
+      }
+    }, 300);
+  }
 
   return (
     <div className="flex gap-4 py-4 border-b last:border-0">
@@ -33,17 +48,16 @@ export function CartItem({ item }: CartItemProps) {
             variant="outline"
             size="icon"
             className="h-7 w-7"
-            onClick={() => updateItem(item.item_key, item.quantity.value - 1)}
-            disabled={item.quantity.value <= 1}
+            onClick={() => changeQty(localQty - 1)}
           >
             <Minus className="h-3 w-3" />
           </Button>
-          <span className="text-sm w-6 text-center">{item.quantity.value}</span>
+          <span className="text-sm w-6 text-center">{localQty}</span>
           <Button
             variant="outline"
             size="icon"
             className="h-7 w-7"
-            onClick={() => updateItem(item.item_key, item.quantity.value + 1)}
+            onClick={() => changeQty(localQty + 1)}
           >
             <Plus className="h-3 w-3" />
           </Button>

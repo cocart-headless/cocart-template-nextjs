@@ -14,6 +14,7 @@ export async function getProducts(params?: {
   perPage?: number;
   category?: string;
   search?: string;
+  orderby?: string;
 }): Promise<Product[]> {
   const client = await getClient();
   const { perPage, ...rest } = params ?? {};

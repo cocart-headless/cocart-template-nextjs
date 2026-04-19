@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/utils";
 import { AddToCartButton } from "./add-to-cart-button";
+import { Button } from "@/components/ui/button";
 
 interface ProductCardProps {
   product: Product;
@@ -54,7 +55,17 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <AddToCartButton product={product} className="w-full" />
+        {product.stock?.stock_status === "outofstock" ? (
+          <Button variant="outline" className="w-full" asChild>
+            <Link href={`/shop/${product.slug}`}>View product</Link>
+          </Button>
+        ) : product.type === "variable" ? (
+          <Button variant="outline" className="w-full" asChild>
+            <Link href={`/shop/${product.slug}`}>Select options</Link>
+          </Button>
+        ) : (
+          <AddToCartButton product={product} className="w-full" />
+        )}
       </CardFooter>
     </Card>
   );

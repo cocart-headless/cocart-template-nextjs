@@ -9,7 +9,7 @@ const CART_KEY_STORAGE = "cocart_cart_key";
 interface CartContextValue {
   cart: Cart | null;
   loading: boolean;
-  addItem: (productId: number, quantity?: number) => Promise<void>;
+  addItem: (productId: number, quantity?: number, variation?: Record<string, string>) => Promise<void>;
   updateItem: (itemKey: string, quantity: number) => Promise<void>;
   removeItem: (itemKey: string) => Promise<void>;
   clear: () => Promise<void>;
@@ -37,8 +37,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     refresh();
   }, [refresh]);
 
-  const addItem = useCallback(async (productId: number, quantity = 1) => {
-    const updated = await addToCart(productId, quantity);
+  const addItem = useCallback(async (productId: number, quantity = 1, variation?: Record<string, string>) => {
+    const updated = await addToCart(productId, quantity, variation);
     setCart(updated);
   }, []);
 

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getProductsByCategory, getCategories } from "@/lib/cocart-server";
 import { ProductCard } from "@/components/shop/product-card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 interface Props {
@@ -32,6 +34,25 @@ export default async function CategoryPage({ params }: Props) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">{category.name}</h1>
+
+      {categories.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-8">
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/shop">All</Link>
+          </Button>
+          {categories.map((cat) => (
+            <Button
+              key={cat.id}
+              variant={cat.slug === slug ? "default" : "outline"}
+              size="sm"
+              asChild
+            >
+              <Link href={`/shop/category/${cat.slug}`}>{cat.name}</Link>
+            </Button>
+          ))}
+        </div>
+      )}
+
       {category.description && (
         <p className="text-muted-foreground mb-8">{category.description}</p>
       )}
