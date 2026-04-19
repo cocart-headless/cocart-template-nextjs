@@ -8,11 +8,16 @@ A headless WooCommerce storefront built with Next.js App Router, React 19, TypeS
 > [!IMPORTANT]
 > This starter template is still a work in progress. It is currently being tested along with [create-cocart](https://github.com/cocart-headless/create-cocart) CLI tool to identify issues or improve before publicly announcing it ready for use.
 
+## Screenshot
+
+![alt text](043CBB44-861A-481C-BED6-BE657C14D8E7.png)
+
 ## Features
 
-- **Product browsing** — listing, category filtering, product detail pages
+- **Product browsing** — listing, category filtering, sorting, and product detail pages
+- **Product types** — separate templates for simple and variable products; variable products show attribute selectors
 - **Product search** — `/search?q=...` with server-side CoCart API query
-- **Client-side cart** — React context wrapping the CoCart SDK, cart key persisted in localStorage
+- **Cart** — React context with debounced quantity updates; all cart requests proxied through Next.js API routes to avoid CORS
 - **Blog** — WordPress posts and post detail pages via the REST API
 - **Checkout shell** — ready for a payment gateway (see below)
 - **Responsive** — mobile menu with inline search, desktop nav with search input
@@ -80,12 +85,19 @@ app/
   not-found.tsx         404 page
   sitemap.ts            /sitemap.xml
   robots.ts             /robots.txt
+  api/
+    cart/
+      route.ts          GET cart proxy (avoids CORS)
+      add-item/         POST add item
+      update-item/      POST update quantity
+      remove-item/      DELETE remove item
+      clear/            DELETE clear cart
   shop/
-    page.tsx            Product listing with category filter
+    page.tsx            Product listing with category filter + sort
     loading.tsx         Skeleton loading state
     error.tsx           Error boundary
-    [slug]/page.tsx     Product detail
-    category/[slug]/    Category listing
+    [slug]/page.tsx     Product detail — routes to simple or variable template
+    category/[slug]/    Category listing with active filter indicator
   cart/page.tsx         Cart (client component)
   checkout/
     page.tsx            Checkout shell (add gateway with CLI)
@@ -100,7 +112,8 @@ app/
     loading.tsx         Skeleton loading state
 
 lib/
-  cocart.ts             CoCart browser client + product/cart helpers
+  cocart-server.ts      Server-only CoCart client (RSC / API routes)
+  cocart.ts             Browser cart helpers — all calls proxied via /api/cart
   cocart.d.ts           Product, Category, Cart, CartItem types
   wordpress.ts          WordPress REST API helpers
   wordpress.d.ts        Post, Author, FeaturedMedia types
@@ -109,8 +122,16 @@ lib/
 components/
   ui/                   shadcn/ui — Button, Card, Badge, Input, Skeleton
   layout/               Header, Footer, Nav, MobileMenu
-  shop/                 ProductCard, ProductGallery, AddToCartButton, SearchInput
-  cart/                 CartProvider, CartItem, CartSummary, CartCount
+  shop/
+    product-card.tsx    Grid card — Add to cart / Select options / View product
+    product-simple.tsx  Simple product page template
+    product-variable.tsx Variable product template with attribute selectors
+    product-meta.tsx    SKU, categories, stock status, related products
+    product-gallery.tsx Image gallery
+    add-to-cart-button.tsx Optional quantity stepper + add button
+    sort-select.tsx     URL-based sort dropdown
+    search-input.tsx    Search input
+  cart/                 CartProvider, CartItem (debounced qty), CartSummary, CartCount
   posts/                PostCard
 ```
 
