@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getProducts, getCategories } from "@/lib/cocart";
+import { getProducts, getCategories } from "@/lib/cocart-server";
 import { getPosts } from "@/lib/wordpress";
 
 const BASE_URL = process.env.NEXT_PUBLIC_COCART_STORE_URL ?? "https://localhost:3000";

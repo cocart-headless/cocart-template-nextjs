@@ -17,9 +17,9 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
   return (
     <div className="flex flex-col gap-3">
       <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
-        {active ? (
+        {active?.src?.large || active?.src?.full ? (
           <Image
-            src={active.src}
+            src={active.src.large || active.src.full}
             alt={active.alt || name}
             fill
             className="object-cover"
@@ -44,7 +44,9 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                 i === activeIndex ? "border-primary" : "border-transparent",
               )}
             >
-              <Image src={img.src} alt={img.alt || name} fill className="object-cover" sizes="64px" />
+              {(img.src?.thumbnail || img.src?.medium) && (
+                <Image src={img.src.thumbnail || img.src.medium} alt={img.alt || name} fill className="object-cover" sizes="64px" />
+              )}
             </button>
           ))}
         </div>

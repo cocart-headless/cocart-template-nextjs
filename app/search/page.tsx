@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/cocart";
+import { getProducts } from "@/lib/cocart-server";
 import { ProductCard } from "@/components/shop/product-card";
 import type { Metadata } from "next";
 

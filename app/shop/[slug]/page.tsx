@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProductBySlug, getProducts } from "@/lib/cocart";
+import { getProductBySlug, getProducts } from "@/lib/cocart-server";
 import { ProductGallery } from "@/components/shop/product-gallery";
 import { AddToCartButton } from "@/components/shop/add-to-cart-button";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const product = await getProductBySlug(slug).catch(() => null);
   if (!product) return {};
-  const image = product.images[0]?.src;
+  const image = product.images[0]?.src?.large || product.images[0]?.src?.full;
   return {
     title: product.name,
     description: product.short_description || product.name,
@@ -53,13 +53,13 @@ export default async function ProductPage({ params }: Props) {
           <h1 className="text-3xl font-bold">{product.name}</h1>
 
           <div className="flex items-center gap-3">
-            <span className="text-2xl font-semibold">{formatPrice(product.price)}</span>
-            {product.on_sale && product.regular_price && (
+            <span className="text-2xl font-semibold">{formatPrice(product.prices.price, product.prices.currency)}</span>
+            {product.prices.on_sale && product.prices.regular_price && (
               <span className="text-lg text-muted-foreground line-through">
-                {formatPrice(product.regular_price)}
+                {formatPrice(product.prices.regular_price, product.prices.currency)}
               </span>
             )}
-            {product.on_sale && <Badge variant="destructive">Sale</Badge>}
+            {product.prices.on_sale && <Badge variant="destructive">Sale</Badge>}
           </div>
 
           {product.short_description && (

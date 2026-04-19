@@ -24,8 +24,14 @@ A headless WooCommerce storefront built with Next.js App Router, React 19, TypeS
 ## Quick start
 
 ```bash
+# Clone the repository
+git clone https://github.com/cocart-headless/cocart-template-nextjs.git
+cd cocart-template-nextjs
+
+# Set up environment variables
 cp .env.example .env.local
-# fill in your values (see Environment variables below)
+
+# Start development server
 npm install
 npm run dev
 ```
@@ -131,6 +137,7 @@ npm run typecheck # TypeScript (no emit)
 | [TypeScript](https://www.typescriptlang.org/) | Type safety |
 | [Tailwind CSS](https://tailwindcss.com/) | Styling |
 | [shadcn/ui](https://ui.shadcn.com/) | UI components |
+| [craft](https://github.com/brijr/craft) | Flexible design system |
 | [@cocartheadless/sdk](https://www.npmjs.com/package/@cocartheadless/sdk) | CoCart API client |
 
 ---

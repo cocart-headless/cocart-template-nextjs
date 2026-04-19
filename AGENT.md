@@ -2,6 +2,18 @@
 
 This file provides guidance to any AI coding agent when working with code in this template.
 
+## Tech stack
+
+| | |
+|---|---|
+| [Next.js](https://nextjs.org/) | React framework (App Router) |
+| [React 19](https://react.dev/) | UI library |
+| [TypeScript](https://www.typescriptlang.org/) | Type safety |
+| [Tailwind CSS](https://tailwindcss.com/) | Styling |
+| [shadcn/ui](https://ui.shadcn.com/) | UI components |
+| [craft](https://github.com/brijr/craft) | Flexible design system |
+| [@cocartheadless/sdk](https://www.npmjs.com/package/@cocartheadless/sdk) | CoCart API client |
+
 ## Architecture Overview
 
 Headless WooCommerce storefront powered by CoCart, built with Next.js App Router, React 19, TypeScript, Tailwind CSS, and shadcn/ui.

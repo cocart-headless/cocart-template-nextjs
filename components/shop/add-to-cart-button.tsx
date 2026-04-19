@@ -14,7 +14,7 @@ export function AddToCartButton({ product, quantity = 1, children, ...props }: A
   const { addItem } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const outOfStock = product.stock_status === "outofstock";
+  const outOfStock = product.stock?.stock_status === "outofstock";
 
   async function handleClick() {
     if (loading || outOfStock) return;

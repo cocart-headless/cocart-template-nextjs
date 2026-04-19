@@ -1,6 +1,14 @@
+export interface ProductImageSrc {
+  thumbnail: string;
+  medium: string;
+  large: string;
+  full: string;
+  [key: string]: string;
+}
+
 export interface ProductImage {
   id: number;
-  src: string;
+  src: ProductImageSrc;
   alt: string;
 }
 
@@ -10,18 +18,39 @@ export interface ProductCategory {
   slug: string;
 }
 
+export interface ProductCurrency {
+  currency_code: string;
+  currency_symbol: string;
+  currency_minor_unit: number;
+  currency_decimal_separator: string;
+  currency_thousand_separator: string;
+  currency_prefix: string;
+  currency_suffix: string;
+}
+
+export interface ProductPrices {
+  price: string;
+  regular_price: string;
+  sale_price: string;
+  on_sale: boolean;
+  currency: ProductCurrency;
+}
+
+export interface ProductStock {
+  stock_status: "instock" | "outofstock" | "onbackorder";
+  stock_quantity: number | null;
+  manage_stock: boolean;
+}
+
 export interface Product {
   id: number;
   name: string;
   slug: string;
   description: string;
   short_description: string;
-  price: string;
-  regular_price: string;
-  sale_price: string;
-  on_sale: boolean;
+  prices: ProductPrices;
   featured: boolean;
-  stock_status: "instock" | "outofstock" | "onbackorder";
+  stock: ProductStock;
   images: ProductImage[];
   categories: ProductCategory[];
 }

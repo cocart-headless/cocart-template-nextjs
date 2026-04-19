@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProducts, getCategories } from "@/lib/cocart";
+import { getProducts, getCategories } from "@/lib/cocart-server";
 import { ProductCard } from "@/components/shop/product-card";
 import { Button } from "@/components/ui/button";
 

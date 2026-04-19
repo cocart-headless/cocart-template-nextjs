@@ -12,14 +12,15 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const image = product.images[0];
+  const imageSrc = image?.src?.large || image?.src?.medium || image?.src?.thumbnail || image?.src?.full;
 
   return (
     <Card className="overflow-hidden group">
       <Link href={`/shop/${product.slug}`}>
         <div className="relative aspect-square bg-muted overflow-hidden">
-          {image ? (
+          {imageSrc ? (
             <Image
-              src={image.src}
+              src={imageSrc}
               alt={image.alt || product.name}
               fill
               className="object-cover transition-transform group-hover:scale-105"
@@ -30,7 +31,7 @@ export function ProductCard({ product }: ProductCardProps) {
               No image
             </div>
           )}
-          {product.on_sale && (
+          {product.prices.on_sale && (
             <Badge className="absolute top-2 left-2" variant="destructive">
               Sale
             </Badge>
@@ -43,10 +44,10 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-medium leading-tight hover:underline line-clamp-2">{product.name}</h3>
         </Link>
         <div className="mt-1 flex items-center gap-2">
-          <span className="font-semibold">{formatPrice(product.price)}</span>
-          {product.on_sale && product.regular_price && (
+          <span className="font-semibold">{formatPrice(product.prices.price, product.prices.currency)}</span>
+          {product.prices.on_sale && product.prices.regular_price && (
             <span className="text-sm text-muted-foreground line-through">
-              {formatPrice(product.regular_price)}
+              {formatPrice(product.prices.regular_price, product.prices.currency)}
             </span>
           )}
         </div>

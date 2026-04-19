@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProductsByCategory, getCategories } from "@/lib/cocart";
+import { getProductsByCategory, getCategories } from "@/lib/cocart-server";
 import { ProductCard } from "@/components/shop/product-card";
 import type { Metadata } from "next";
 
