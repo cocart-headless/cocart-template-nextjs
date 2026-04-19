@@ -11,6 +11,7 @@ const links = [
   { href: "/shop", label: "Shop" },
   { href: "/posts", label: "Blog" },
   { href: "/cart", label: "Cart" },
+  { href: "/login", label: "Sign in" },
 ];
 
 export function MobileMenu() {

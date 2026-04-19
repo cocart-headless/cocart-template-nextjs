@@ -4,6 +4,7 @@ import { Nav } from "./nav";
 import { MobileMenu } from "./mobile-menu";
 import { CartCount } from "@/components/cart/cart-count";
 import { SearchInput } from "@/components/shop/search-input";
+import { UserAvatar } from "@/components/auth/user-avatar";
 
 export function Header() {
   return (
@@ -15,12 +16,13 @@ export function Header() {
 
         <Nav />
 
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-4">
           <SearchInput />
           <Link href="/cart" className="relative flex items-center gap-1 text-sm font-medium">
             <ShoppingCart className="h-5 w-5" />
             <CartCount />
           </Link>
+          <UserAvatar />
           <MobileMenu />
         </div>
       </div>
